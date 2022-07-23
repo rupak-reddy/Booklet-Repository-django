@@ -1,0 +1,112 @@
+<html>
+    <html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+</head>
+<img src="https://upload.wikimedia.org/wikipedia/en/thumb/1/1d/Indian_Institute_of_Technology_Bombay_Logo.svg/1200px-Indian_Institute_of_Technology_Bombay_Logo.svg.png" alt="Logo" width="200" height="200">
+<style>
+    *{
+        box-sizing: border-box;
+    }
+    body{
+        background-image: url("https://www.iirs.gov.in/iirs/sites/default/files/library/library6.JPG");
+        color:black;
+    }
+    .bg-image{
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+    .button{
+    border: none;
+    color: black;
+    background-color: lime;
+    padding:16px 20px;
+    text-align: center;
+    font-size: 18px;
+    cursor: pointer;
+    }
+    button:hover{
+        opacity: 0.7;
+    }
+    .h{
+        text-align: center;
+    }
+    marquee{
+        font-size: xx-large;
+        color: black;
+    }
+    .container{
+        position: absolute;
+        left: 35%;
+        margin: 20px;
+        max-width: 700px;
+        background-color: black;
+        border-radius: 5px;
+        padding: 20px;
+    }
+    .name{
+        padding: 15px;
+        border: 2px solid black;
+        border-radius: 2px;
+        margin-top: 5px;
+        margin-bottom: 20px;
+        width: 100%;
+    }
+    a:link, a:visited{
+        color: blue;
+        background-color: transparent;
+        text-decoration: none;
+    }
+    table, th, td{
+        border: 2px solid black;
+        border-collapse: collapse;
+        text-align: center;
+        position: center;
+        color: black;
+    }
+</style>
+{% load socialaccount %}
+<body>
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} alert-dismissable fade show" role="alert">
+    {{ message }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="close">
+    <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    {% endfor %}
+    <marquee behavior="scroll" direction="right" >Welcome to Central Library, IIT BOMBAY</marquee>
+    {% if user.is_authenticated %}
+    <button class="button" style="float: right; margin-bottom: 8%;"><a href="/signout">Logout</a></button>
+    <h1 style="font-size: 20px;color:black;text-align: center;">Welcome, You are logged in as {{ user.username }}</h1>
+    <table style="width: 100%;">
+        <tr>
+        <th>Title of document</th>
+        <th>Download PDF</th>
+        <th>View PDF</th>
+        </tr>
+    {% for post in file%}
+    <tr>
+    <td><h4>{{post.title}}</h4></td>
+    <td><a href="{{post.adminupload.url}}" download="{{post.adminupload.url}}">Download</a></td>
+    <td><a href="{{post.adminupload.url}}">View</a></td>
+    </tr>
+
+    {% endfor %}
+</table>
+    {% else %}
+
+    <button class="button"><a href="{% provider_login_url 'google' %}">Login With Google</a></button>
+    <h4 style="padding-left: 5%; font-size: large;">or</h4>
+    <button class="button"><a href="/signin">Login with Username</a></button>
+    <h4 style="padding-left: 2%; font-size:large">New user ? Create an account</h4>
+    <button class="button"><a href="/signup">Sign Up</a></button>
+
+
+    {% endif %}
+</body>
+</html>

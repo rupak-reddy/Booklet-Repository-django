@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log in</title>
+</head>
+<img src="https://upload.wikimedia.org/wikipedia/en/thumb/1/1d/Indian_Institute_of_Technology_Bombay_Logo.svg/1200px-Indian_Institute_of_Technology_Bombay_Logo.svg.png" alt="Logo" width="200" height="200">
+<style>
+    *{
+        box-sizing: border-box;
+    }
+    body{
+        background-image: url("https://images.unsplash.com/photo-1568667256549-094345857637?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1yZWxhdGVkfDE0fHx8ZW58MHx8fHw%3D&w=1000&q=80");
+        color: black;
+    }
+    .bg-image{
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+    .button{
+    border: none;
+    color: black;
+    background-color: lime;
+    padding:16px 20px;
+    text-align: center;
+    font-size: 18px;
+    cursor: pointer;
+    }
+    .h{
+        text-align: center;
+    }
+    marquee{
+        font-size: xx-large;
+        color: white;
+    }
+    .container{
+        position: absolute;
+        right: 0;
+        margin: 20px;
+        max-width: 400px;
+        background-color: white;
+
+        border-radius: 5px;
+        padding: 20px;
+    }
+    .name{
+        padding: 15px;
+        border: 2px solid black;
+        border-radius: 2px;
+        margin-top: 5px;
+        margin-bottom: 20px;
+        width: 100%;
+    }
+    a:link, a:visited{
+        color: blue;
+        background-color: transparent;
+        text-decoration: none;
+    }
+</style>
+<body>
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} alert-dismissable fade show" role="alert">
+    {{ message }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="close">
+    <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+    {% endfor %}
+<marquee behaviour="scroll" direction="right" >Welcome to Central Library, IIT BOMBAY</marquee>
+<div class="bg-image">
+    <form class="container" action="/signin" method="POST">
+        {%csrf_token%}
+        <h1 style="color:black; text-align: center;">Sign in</h1>
+        <label style="color: black;"><h3><b>Username :</b></h3></label>
+        <input type="text" name="username" class="name" style="font-size: 20px;" placeholder="Enter your Username">
+        <label style="color:black;"><h3><b>Password :</b></h3></label>
+        <input type="password" name="password" class="name" style="font-size: 20px" placeholder="Enter your Password">
+        <button type="submit" class="button">Login</button>
+    </form>
+</div>
+</section>
+</body>
+</html>
